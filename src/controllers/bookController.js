@@ -3,10 +3,66 @@ const BookModel= require("../models/bookModel")
 
 const createBook= async function (req, res) {
     let data= req.body
-
     let savedData= await BookModel.create(data)
     res.send({msg: savedData})
 }
+
+
+//  2nd prob
+const bookList= async function (req, res) {
+    let allbookData= await BookModel.find().select({bookName:1, authorName:1,_id:0})
+    res.send({msg: allbookData})
+
+}     // } ).select( { bookName: 1, authorName: 1, _id: 0})n // SELECT keys that we want (refrence)
+
+
+//  3rd prob
+const getbookYear= async function (req, res) {
+    let allyear= await BookModel.find({year:2021})
+    res.send({msg: allyear})
+}
+
+
+// 5th prob
+const getXinrBooks= async function(req,res){
+
+    let xinrBooks=await BookModel.find({"prices.indianPrice" : {$in:["100 INR","200 INR","500 INR"]}} )
+
+    res.send({msg: xinrBooks})                           //  sales : { $in: [10, 17, 82] } (refrence)
+}
+
+// 6th
+const getRandomBooks=async function(req,res){
+
+    let randomBooks=await BookModel.find({ $or :[ {stockAvailable : true} ,{pages:{ $gt: 50  }}]})
+    res.send({msg:  randomBooks})
+                                             // let allBooks= await BookModel.find({ sales: { $gt:  50 }  })  (refrence)
+}
+
+
+/// 4th
+const getParticularBooks = async function(req, res){
+    let name = req.query.authorName
+    let year = req.query.year
+    let bookData = await BookModel.find({$or : [{authorName : name},{year : year}]})
+    res.send({msg : bookData})      // (doubt)
+}
+
+//     $or: [ {authorName : "Chetan Bhagat" } , { isPublished: true } , {  "year": 1991 }] (refrence)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const getBooksData= async function (req, res) {
 
@@ -83,3 +139,11 @@ const getBooksData= async function (req, res) {
 
 module.exports.createBook= createBook
 module.exports.getBooksData= getBooksData
+
+
+//new book2
+module.exports.bookList= bookList
+module.exports.getbookYear= getbookYear
+module.exports.getXinrBooks= getXinrBooks
+module.exports.getRandomBooks= getRandomBooks
+module.exports.getParticularBooks=getParticularBooks
