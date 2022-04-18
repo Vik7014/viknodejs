@@ -1,5 +1,7 @@
 const authorModel = require("../models/newauthor")
+const newBook = require("../models/newBook")
 const bookModel= require("../models/newBook")
+const publisher = require("../models/publisher")
 const publisherModel = require("../models/publisher")
 
 const createBook= async function (req, res) {
@@ -39,9 +41,20 @@ const getBooksWithAuthorDetails = async function (req, res) {
     res.send({data: specificBook})
 
 }
+// 5a problem 
 
+const updateBooks = async function(req,res){
+    let hardCoverPublisher = await publisher.find({name: {$in:['penguin','vikash']}}).select({_id: 1})
+    let arrayOfPublisher = []
+    for(let i=0; i< hardCoverPublisher.length;i++){
+        let objId = hardCoverPublisher[i]._id
+        arrayOfPublisher.push(objId)
+    }
+    let books = await newBook.updateMany({publisher: {$in: arrayOfPublisher}},{isHardCover: true})
+    res.send({data: books})
+}
 
-
+module.exports.updateBooks= updateBooks
 module.exports.createBook= createBook
 module.exports.getBooksData= getBooksData
 module.exports.getBooksWithAuthorDetails = getBooksWithAuthorDetails

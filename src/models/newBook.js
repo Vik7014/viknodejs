@@ -18,6 +18,10 @@ const bookSchema = new mongoose.Schema( {
         type:ObjectId,
         ref:"publisher",
         required:true
+    },
+    isHardCover:{
+        type: Boolean,
+        default: false
     }
     
 
