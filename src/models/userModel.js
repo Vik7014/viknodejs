@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const userSchema = new mongoose.Schema( {
     firstName: String,
     lastName: String,
@@ -10,6 +11,10 @@ const userSchema = new mongoose.Schema( {
     },
     emailId: String,
     password: String,
+    isDeleted:{
+        type:Boolean,
+        default:false
+    },
     gender: {
         type: String,
         enum: ["male", "female", "other"]
