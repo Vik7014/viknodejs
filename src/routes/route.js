@@ -1,28 +1,28 @@
 const express = require('express');
 const router = express.Router();
-const CowinController= require("../controllers/coWin")
+const authorController= require("../controller/authorController")
+const blogController= require("../controller/blogController")
+const mid= require("../middleware/allMiddleware")
+
+
+router.post("/author",authorController.Author)
+router.post("/blogs",mid.authentication, blogController.blog)
+router.get("/blogs",mid.authentication,blogController.getblog)
+router.put("/blogs/:blogId",mid.authentication,mid.autherization, blogController.updateblog)
+router.delete("/blogs/:blogId",mid.authentication, mid.autherization, blogController.deleted)
+router.delete("/blogs", mid.authentication,mid.autherization, blogController.deletequery)
+router.post("/login", authorController.loginAuthor)
 
 
 
-router.get("/test-me", function (req, res) {
-    res.send("My first ever api!")
-})
 
 
-router.get("/cowin/states", CowinController.getStates)
-router.get("/cowin/districtsInState/:stateId", CowinController.getDistricts)
-router.get("/cowin/getByPin", CowinController.getByPin)
 
-router.post("/cowin/getOtp", CowinController.getOtp)
 
-// WRITE A GET API TO GET THE LIST OF ALL THE "vaccination sessions by district id" for any given district id and for any given date
-router.get("/cowin/getSession",CowinController.getSession)
 
-router.get("/getWeather",CowinController.getWeather)
 
-router.get("/getSort",CowinController.getSort)
-router.get("/getMemes",CowinController.getMemes)
-router.post("/createMemes",CowinController.createMeme)
+
+
 
 
 module.exports = router;
