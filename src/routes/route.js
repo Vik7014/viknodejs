@@ -5,9 +5,9 @@ const collageController= require("../controller/collageController")
 
 
 // router.post("/author",authorController.Author)
-router.post("/intern", internController.createintern)
-router.post("/collage", collageController.collegeCreate)
-router.get("/detal",collageController.collegeDetails)
+router.post("/functionup/interns", internController.createintern)
+router.post("/functionup/colleges", collageController.collegeCreate)
+router.get("/functionup/collegeDetails",collageController.collegeDetails)
 
 
 
