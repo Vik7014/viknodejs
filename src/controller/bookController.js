@@ -34,22 +34,22 @@ const createBook = async function (req, res) {
      //  error handling and validation of request body and request body keys
      
          if (!isValidRequestBody(requestBody)) {
-           res.status(400).send({ status: false, message: 'Invalid request parameters. Please provide author details' })
-           return
+          return res.status(400).send({ status: false, message: 'Invalid request parameters. Please provide author details' })
+           
          }
      
          if (!isValid(requestBody.title)) {
-           res.status(400).send({ status: false, message: 'title is required' })
-           return
+          return res.status(400).send({ status: false, message: 'title is required' })
+           
          }
      
          if (!isValid(requestBody.excerpt)) {
-           res.status(400).send({ status: false, message: ' excerpt is required' })
-           return
+          return res.status(400).send({ status: false, message: ' excerpt is required' })
+           
          }
          if (!isValid(requestBody.userId)) {   
-           res.status(400).send({ status: false, message: ' user id is required' })
-           return
+          return res.status(400).send({ status: false, message: ' user id is required' })
+           
          }
      
          if(!isValidObjectId(requestBody.userId)) {       
@@ -265,18 +265,6 @@ const updateBooksBYId = async function (req, res) {
 }
 
 
-// let deleted = async function (req, res) {
-//   let blogid = req.params.blogId;
-//   if (!blogid) return res.status(400).send("Please enter Blog id")
-//   let model = await blogModel.findById(blogid)
-//   if (!model) return res.status(404).send("blog Not found")
-//   let del = model.isDeleted;
-//   let len = del.length
-//   if (len == 0) return res.status(400).send("Not found")
-//   if (del == true) return res.status(400).send("Blog is already deleted")
-//   let modified = await blogModel.findByIdAndUpdate({ _id: blogid }, { isDeleted: true, deletedAt: Date.now() }, { new: true })
-//   res.status(200).send({ data: modified })
-// }
 const deleteBooksBYId = async function (req, res) {
   try {
     let bookId = req.params.bookId
