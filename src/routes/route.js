@@ -3,7 +3,7 @@ const router = express.Router();
 
 
 
-const{urlShortner, getUrl}= require('../controllers/urlController')
+const{urlShortner, getUrl}= require('../controller/urlController')
 
 
 
